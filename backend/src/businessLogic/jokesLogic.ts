@@ -21,9 +21,11 @@ export async function createJoke (createJokeRequest: CreateJokeRequest, jwtToken
   const itemId = uuid.v4();
   const userId = parseUserId(jwtToken);
 
+  logger.info(itemId, itemId);
+
   return await jokeAccess.createJoke({
     jokeId: itemId,
-    userId,
+    userId: userId,
     name: createJokeRequest.name,
     description: createJokeRequest.description,
     createdAt: new Date().toISOString()
@@ -42,7 +44,7 @@ export const updateJoke = async (
 
   return await jokeAccess.updateJoke({
     jokeId,
-    userId,
+    userId: userId,
     name: updateJokeRequest.name,
     description: updateJokeRequest.description,
     createdAt: new Date().toISOString()

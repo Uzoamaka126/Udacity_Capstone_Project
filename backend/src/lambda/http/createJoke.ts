@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandler = middy(async (event: APIGatewayPro
         'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify({
-        newJokeItem
+        item: newJokeItem
       })
     }
   } catch (err) {
