@@ -8,7 +8,7 @@ const logger = createLogger('update-a-joke');
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 
 export const handler: APIGatewayProxyHandler = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
+  // TODO: Return a presigned URL to upload a file for a joke item with the provided id
   logger.info('Processing event', event);
   
   try {

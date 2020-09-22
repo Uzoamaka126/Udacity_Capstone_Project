@@ -1,7 +1,7 @@
 // import { StringMap } from "aws-sdk/clients/ecs";
 
 /**
- * Fields in a request to create a single TODO item.
+ * Fields in a request to create a single joke item.
  */
 export interface CreateJokeRequest {
   name: string
