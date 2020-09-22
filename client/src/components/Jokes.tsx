@@ -13,10 +13,10 @@ import {
   Image,
   Loader
 } from 'semantic-ui-react'
-
 import { createJoke, deleteJoke, getJokes, patchJoke } from '../api/jokes-api'
 import Auth from '../auth/Auth'
-import { Joke } from '../types/Joke'
+import { Joke } from '../types/Joke';
+import EmptyPage from '../box.svg';
 
 interface JokesProps {
   auth: Auth;
@@ -127,6 +127,9 @@ export class Jokes extends React.PureComponent<JokesProps, JokesState> {
     if (this.state.loadingJokes) {
       return this.renderLoading()
     }
+    if(this.state.jokes === []) {
+      return this.renderEmptyPage();
+    }
     return this.renderJokeList()
   }
 
@@ -136,6 +139,21 @@ export class Jokes extends React.PureComponent<JokesProps, JokesState> {
         <Loader indeterminate active inline="centered">
           Loading Jokes...
         </Loader>
+      </Grid.Row>
+    )
+  }
+
+  renderEmptyPage() {
+    return (
+      <Grid.Row>
+        <Grid.Column width={10} verticalAlign="middle">
+          <img src={EmptyPage} alt="open envelope" />
+          <p 
+            style={{ fontSize: '18px' }}
+          >
+            Oops! You have no jokes stored.
+          </p>
+        </Grid.Column>
       </Grid.Row>
     )
   }
