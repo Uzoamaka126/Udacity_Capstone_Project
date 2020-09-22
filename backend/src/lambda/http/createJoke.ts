@@ -1,21 +1,20 @@
 import 'source-map-support/register';
-// import { cors } from 'middy/middlewares';
 import * as middy from 'middy';
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-import { createTodo } from '../../businessLogic/todosLogic'
-import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
+import { createJoke } from '../../businessLogic/jokesLogic'
+import { CreateJokeRequest } from '../../requests/CreateJokeRequest'
 import { createLogger } from '../../utils/logger'
 import { getToken } from '../../auth/utils';
 
-const logger = createLogger('get_todos');
+const logger = createLogger('get_jokes');
 
 export const handler: APIGatewayProxyHandler = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   logger.info('processing request', event);
   
   try {
-    const newTodo: CreateTodoRequest = JSON.parse(event.body)
+    const newJoke: CreateJokeRequest = JSON.parse(event.body)
     const jwtToken: string = getToken(event.headers.Authorization)
-    const newTodoItem = await createTodo(newTodo, jwtToken)
+    const newJokeItem = await createJoke(newJoke, jwtToken)
 
     return {
       statusCode: 201,
@@ -24,7 +23,7 @@ export const handler: APIGatewayProxyHandler = middy(async (event: APIGatewayPro
         'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify({
-        newTodoItem
+        newJokeItem
       })
     }
   } catch (err) {
@@ -35,9 +34,3 @@ export const handler: APIGatewayProxyHandler = middy(async (event: APIGatewayPro
       }
   }
 });
-
-// handler.arguments(
-//   cors({
-//     credentials: true
-//   })
-// );

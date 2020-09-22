@@ -1,61 +1,56 @@
-# Serverless TODO
+# Serverless Jokes App
 
-To implement this project, you need to implement a simple TODO application using AWS Lambda and Serverless framework. Search for all comments starting with the `TODO:` in the code to find the placeholders that you need to implement.
+This project is a simple jokes note-taking application using AWS Lambda and Serverless framework.
 
 # Functionality of the application
 
-This application will allow creating/removing/updating/fetching TODO items. Each TODO item can optionally have an attachment image. Each user only has access to TODO items that he/she has created.
+This application allows users to create/remove/update/fetch joke items. Each joke item can optionally have an attachment image, incase a user takes a screenshot of the joke, probably while browsing some social media app. Each user only has access to the jokes that he/she has created.
 
-# TODO items
+# Joke items
 
-The application should store TODO items, and each TODO item contains the following fields:
+The application stores Jokes, and each joke contains the following:
 
-* `todoId` (string) - a unique id for an item
-* `createdAt` (string) - date and time when an item was created
-* `name` (string) - name of a TODO item (e.g. "Change a light bulb")
-* `dueDate` (string) - date and time by which an item should be completed
-* `done` (boolean) - true if an item was completed, false otherwise
-* `attachmentUrl` (string) (optional) - a URL pointing to an image attached to a TODO item
+* `jokeId` (string) - a unique id for a joke
+* `createdAt` (string) - date and time when the joke was created
+* `name` (string) - name of a joke
+* `description` (string) - body of the joke here
+* `attachmentUrl` (string) (optional) - a URL pointing to an image attached to a joke item
 
-You might also store an id of a user who created a TODO item.
+You might also store an id of a user who created a joke.
 
 
-# Functions to be implemented
+# Functions found in the backend service
 
-To implement this project, you need to implement the following functions and configure them in the `serverless.yml` file:
+* `Auth` - this function is a custom authorizer for API Gateway that is added to all other functions.
 
-* `Auth` - this function should implement a custom authorizer for API Gateway that should be added to all other functions.
+* `GetJokes` - returns all jokes for a current user. A user id is extracted from a JWT token which is sent by the client
 
-* `GetTodos` - should return all TODOs for a current user. A user id can be extracted from a JWT token that is sent by the frontend
-
-It should return data that looks like this:
+It returns data that looks like this:
 
 ```json
 {
   "items": [
     {
-      "todoId": "123",
+      "jokeId": "123",
       "createdAt": "2019-07-27T20:01:45.424Z",
-      "name": "Buy milk",
-      "dueDate": "2019-07-29T20:01:45.424Z",
-      "done": false,
+      "name": "Chicken Joke",
+      "description": "Why did the chicken cross the road? Oh, that is because...",
       "attachmentUrl": "http://example.com/image.png"
     },
     {
-      "todoId": "456",
+      "jokeId": "456",
       "createdAt": "2019-07-27T20:01:45.424Z",
-      "name": "Send a letter",
-      "dueDate": "2019-07-29T20:01:45.424Z",
-      "done": true,
+      "name": "Chicken Joke",
+      "description": "Why did the chicken cross the road? Oh, that is because...",
       "attachmentUrl": "http://example.com/image.png"
     },
   ]
 }
 ```
 
-* `CreateTodo` - should create a new TODO for a current user. A shape of data send by a client application to this function can be found in the `CreateTodoRequest.ts` file
+* `CreateJoke` - creates a new joke for a current user. A shape of data send by a client application to this function can be found in the `CreateJokeRequest.ts` file
 
-It receives a new TODO item to be created in JSON format that looks like this:
+It receives a new Joke item to be created in JSON format that looks like this:
 
 ```json
 {

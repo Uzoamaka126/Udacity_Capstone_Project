@@ -1,21 +1,18 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "title": "todo",
+    "title": "joke",
     "type": "object",
     "properties": {
       "name": {
         "type": "string"
       },
-      "dueDate": {
+      "description": {
         "type": "string"
-      },
-      "done": {
-        "type": "boolean"
       },
       "attachmentUrl": {
         "type": "string"
       }
     },
-    "required": ["name", "dueDate", "done"],
+    "required": ["name", "description"],
     "additionalProperties": false
   }

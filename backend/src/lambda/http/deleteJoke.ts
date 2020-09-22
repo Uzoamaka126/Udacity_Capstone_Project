@@ -1,19 +1,19 @@
 import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { deleteTodo } from '../../businessLogic/todosLogic'
+import { deleteJoke } from '../../businessLogic/jokesLogic'
 import * as middy from 'middy'
 import { getToken } from '../../auth/utils'
 import { createLogger } from '../../utils/logger'
 
-const logger = createLogger('delete-a-todo')
+const logger = createLogger('delete-a-joke')
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const todoId = event.pathParameters.todoId
+    const jokeId = event.pathParameters.jokeId
     const jwtToken: string = getToken(event.headers.Authorization)
 
     try {
-      await deleteTodo(todoId, jwtToken);
+      await deleteJoke(jokeId, jwtToken);
 
       return {
         statusCode: 200,

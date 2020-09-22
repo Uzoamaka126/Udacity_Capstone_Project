@@ -1,9 +1,8 @@
-export interface TodoItem {
+export interface JokeItem {
   userId: string
-  todoId: string
+  jokeId: string
   createdAt: string
   name: string
-  dueDate: string
-  done: boolean
+  description: string
   attachmentUrl?: string
 }
